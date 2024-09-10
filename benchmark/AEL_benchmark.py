@@ -5,11 +5,12 @@ sys.path.append('../ParserBenchmarks')
 
 from logparser.utils import evaluator
 from logparser.AEL import AEL
-import pandas as pd
 from pathlib import Path
+import pandas as pd
+import os
 
-input_dir = "logparser/logs"  # The input directory of log file
-output_dir = "logparser/results/AEL_result/"  # The output directory of parsing results
+input_dir = "logs"  # The input directory of log file
+output_dir = "results/AEL_result"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {
@@ -144,7 +145,9 @@ benchmark_settings = {
 bechmark_result = []
 for dataset, setting in benchmark_settings.items():
     print('\n=== Evaluation on %s ==='%dataset)
+    print(input_dir)
     indir = os.path.join(input_dir, os.path.dirname(setting['log_file']))
+
     log_file = os.path.basename(setting['log_file'])
 
     parser = AEL.LogParser(log_format=setting['log_format'], indir=indir, outdir=output_dir,
@@ -162,5 +165,5 @@ print('\n=== Overall evaluation results ===')
 df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'Precision', 'Recall', 'F1 Measure', 'Accuracy'])
 df_result.set_index('Dataset', inplace=True)
 print(df_result)
-filepath = Path('logparser/results/AEL_bechmark_result.csv') 
+filepath = Path('results/AEL_bechmark_result.csv') 
 df_result.T.to_csv(filepath)
