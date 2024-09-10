@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
-import sys
-sys.path.append("C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/pyteste")
-from logparser.logparser.utils import evaluator
-from logparser.logparser.LogCluster import LogCluster
-import os
-import pandas as pd
-from pathlib import Path
 
-input_dir = "C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/pyteste/logparser/logs"
-output_dir = 'logparser/results/LogCluster_result/'  # The output directory of parsing results
+import sys
+sys.path.append('../ParserBenchmarks')
+
+from logparser.utils import evaluator
+from logparser.LogCluster import LogCluster
+from pathlib import Path
+import pandas as pd
+import os
+
+input_dir = "logs"
+output_dir = "results/LogCluster_result/"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {
@@ -138,12 +140,12 @@ for dataset, setting in benchmark_settings.items():
                            groundtruth=os.path.join(indir, log_file + '_structured.csv'),
                            parsedresult=os.path.join(output_dir, log_file + '_structured.csv')
                            )
-    bechmark_result.append([dataset, F1_measure, accuracy])
+    bechmark_result.append([dataset, precision, recall, f_measure, accuracy])
 
 
 print('\n=== Overall evaluation results ===')
-df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'F1_measure', 'Accuracy'])
+df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'Precision', 'Recall', 'F1 Measure', 'Accuracy'])
 df_result.set_index('Dataset', inplace=True)
 print(df_result)
-filepath = Path('logparser/results/LogCluster_result/LogCluster_bechmark_result.csv') 
+filepath = Path('results/LogCluster_bechmark_result.csv') 
 df_result.T.to_csv(filepath)
