@@ -1,13 +1,16 @@
 #!/usr/bin/env python
+
 import sys
-sys.path.append('../')
-from logparser import SLCT, evaluator
-import os
+sys.path.append('../ParserBenchmarks')
+
+from logparser.utils import evaluator
+from logparser. import LogSig
+from pathlib import Path
 import pandas as pd
+import os
 
-
-input_dir = '../logs/' # The input directory of log file
-output_dir = 'SLCT_result/' # The output directory of parsing results
+input_dir = "logs"
+output_dir = "results/LogSig_result/"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {

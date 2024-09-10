@@ -1,1 +1,1 @@
-from LogSig import *
+from logparser.LogSig import *

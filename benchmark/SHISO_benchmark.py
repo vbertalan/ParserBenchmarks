@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append("C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/parser-1")
-from logparser.logparser.utils import evaluator
-from logparser.logparser.SHISO import *
-import os
-import pandas as pd
+sys.path.append('../ParserBenchmarks')
+
+from logparser.utils import evaluator
+from logparser.SHISO import SHISO
 from pathlib import Path
+import pandas as pd
+import os
 
-
-input_dir = "logparser/logs"
-output_dir = "logparser/results/SHISO_result/"  # The output directory of parsing results
+input_dir = "logs"
+output_dir = "results/SHISO_result/"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {
@@ -196,5 +196,5 @@ print('\n=== Overall evaluation results ===')
 df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'Precision', 'Recall', 'F1 Measure', 'Accuracy'])
 df_result.set_index('Dataset', inplace=True)
 print(df_result)
-filepath = Path('logparser/results/SHISO_bechmark_result.csv') 
+filepath = Path('results/SHISO_bechmark_result.csv') 
 df_result.T.to_csv(filepath)
