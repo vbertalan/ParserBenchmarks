@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append("C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/parser-1")
-from logparser.logparser.utils import evaluator
-from logparser.logparser.AEL import AEL
-import os
+sys.path.append('../ParserBenchmarks')
+
+from logparser.utils import evaluator
+from logparser.AEL import AEL
 import pandas as pd
 from pathlib import Path
 
-input_dir = "C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/parser-1/logparser/logs"  # The input directory of log file
-output_dir = "C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/parser-1/logparser/results/AEL_result/"  # The output directory of parsing results
+input_dir = "logparser/logs"  # The input directory of log file
+output_dir = "logparser/results/AEL_result/"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {
