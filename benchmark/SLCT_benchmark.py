@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+### ENCONTRAR CÓDIGO DO SLCT
+
 import sys
 sys.path.append('../ParserBenchmarks')
 

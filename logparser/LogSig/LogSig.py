@@ -190,7 +190,7 @@ class LogParser:
             lineNo += 1
 
         for i in range(self.para.groupNum):
-            sig = max(candidateSeq[i].items(), key=operator.itemgetter(1))[0]
+            sig =  [0]
             self.signature.append(sig)
 
     def writeResultToFile(self):
