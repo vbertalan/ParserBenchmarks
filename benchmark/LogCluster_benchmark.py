@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-## USA PERL - PRECISA INSTALAR
+## USES PERL LIBRARIES - PERL MANDATORY
 import sys
 sys.path.append('../ParserBenchmarks')
 
