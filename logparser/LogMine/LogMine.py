@@ -8,7 +8,7 @@ import sys
 sys.path.append("C:/Users/vbert/OneDrive/DOUTORADO Poly Mtl/Projeto/parser-1/logparser/logparser/LogMine")
 import regex as re
 import os
-import alignment
+from logparser.LogMine import alignment_logmine
 import copy
 import hashlib
 import pandas as pd
@@ -120,7 +120,7 @@ class LogParser():
         return log_merged
 
     def pair_merge(self, loga, logb):
-        loga, logb = alignment.water(loga.split(), logb.split())
+        loga, logb = alignment_logmine.water(loga.split(), logb.split())
         logn = []
         for idx, value in enumerate(loga):
             logn.append('<*>' if value != logb[idx] else value)
