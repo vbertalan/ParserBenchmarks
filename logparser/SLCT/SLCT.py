@@ -21,6 +21,7 @@ from datetime import datetime
 import logparser.SLCT.regexmatch as RegexMatch
 import subprocess
 import os
+import sys
 
 
 class LogParser(object):
@@ -47,12 +48,12 @@ def SLCT(para, log_format, rex):
     logname = os.path.join(para["dataPath"], para["dataName"])
     print("Parsing file: {}".format(logname))
 
-    # SLCT compilation
-    if not os.path.isfile("../SLCT/slct"):
+    if not os.path.isfile("slct"):
+        print("nao e arquivo")
         try:
-            print("Compile SLCT...\n>> gcc -o ./src/slct -O2 ./src/cslct.c")
+            print("Compile SLCT...\n>> gcc -o slct -O2 cslct.c")
             subprocess.check_output(
-                "gcc -o ./src/slct -O2 ./src/cslct.c",
+                "gcc -o slct -O2 cslct.c",
                 stderr=subprocess.STDOUT,
                 shell=True,
             )
@@ -170,7 +171,7 @@ def generate_logformat_regex(logformat):
     regex = ""
     for k in range(len(splitters)):
         if k % 2 == 0:
-            splitter = re.sub(" +", "\s+", splitters[k])
+            splitter = re.sub(' +', '\\\s+', splitters[k])
             regex += splitter
         else:
             header = splitters[k].strip("<").strip(">")
