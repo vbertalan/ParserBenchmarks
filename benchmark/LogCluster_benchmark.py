@@ -136,7 +136,7 @@ for dataset, setting in benchmark_settings.items():
     parser = LogCluster.LogParser(indir, setting['log_format'], output_dir, rex=setting['regex'], rsupport=setting['rsupport'])
     parser.parse(log_file)
     
-    F1_measure, accuracy = evaluator.evaluate(
+    precision, recall, f_measure, accuracy = evaluator.evaluate(
                            groundtruth=os.path.join(indir, log_file + '_structured.csv'),
                            parsedresult=os.path.join(output_dir, log_file + '_structured.csv')
                            )
