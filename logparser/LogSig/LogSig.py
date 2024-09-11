@@ -196,7 +196,7 @@ class LogParser:
     def writeResultToFile(self):
         idx_eventID = {}
         for idx, item in enumerate(self.signature):
-            eventStr = ' '.join(item)
+            eventStr = ' '.join(str(item))
             idx_eventID[idx] = hashlib.md5(eventStr.encode('utf-8')).hexdigest()[0:8]
 
         EventId = []
@@ -209,7 +209,7 @@ class LogParser:
         for item in LineId_groupId:
             GroupID = item[1]
             EventId.append(idx_eventID[GroupID])
-            EventTemplate.append(' '.join(self.signature[GroupID]))
+            EventTemplate.append(' '.join(str(self.signature[GroupID])))
 
         self.df_log['EventId'] = EventId
         self.df_log['EventTemplate'] = EventTemplate
