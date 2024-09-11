@@ -1,18 +1,17 @@
 #!/usr/bin/env python
 
-### ENCONTRAR CÓDIGO DO SLCT
 
 import sys
 sys.path.append('../ParserBenchmarks')
 
 from logparser.utils import evaluator
-from logparser. import LogSig
+from logparser.SLCT import SLCT
 from pathlib import Path
 import pandas as pd
 import os
 
 input_dir = "logs"
-output_dir = "results/LogSig_result/"  # The output directory of parsing results
+output_dir = "results/SLCT_result/"  # The output directory of parsing results
 
 benchmark_settings = {
     'HDFS': {
@@ -130,7 +129,7 @@ benchmark_settings = {
 
 
 bechmark_result = []
-for dataset, setting in benchmark_settings.iteritems():
+for dataset, setting in benchmark_settings.items():
     print('\n=== Evaluation on %s ==='%dataset)
     indir = os.path.join(input_dir, os.path.dirname(setting['log_file']))
     log_file = os.path.basename(setting['log_file'])
@@ -139,15 +138,17 @@ for dataset, setting in benchmark_settings.iteritems():
                             rex=setting['regex'], support=setting['support'])
     parser.parse(log_file)
     
-    F1_measure, accuracy = evaluator.evaluate(
+    precision, recall, f_measure, accuracy = evaluator.evaluate(
                            groundtruth=os.path.join(indir, log_file + '_structured.csv'),
                            parsedresult=os.path.join(output_dir, log_file + '_structured.csv')
                            )
-    bechmark_result.append([dataset, F1_measure, accuracy])
+    bechmark_result.append([dataset, precision, recall, f_measure, accuracy])
 
 
 print('\n=== Overall evaluation results ===')
-df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'F1_measure', 'Accuracy'])
+df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'Precision', 'Recall', 'F1 Measure', 'Accuracy'])
 df_result.set_index('Dataset', inplace=True)
 print(df_result)
-df_result.T.to_csv('SLCT_benchmark_result.csv')
+filepath = Path('results/SLCT_bechmark_result.csv') 
+df_result.T.to_csv(filepath)
+
