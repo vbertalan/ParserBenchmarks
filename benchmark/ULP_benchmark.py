@@ -24,7 +24,7 @@ import pandas as pd
 import os
 
 input_dir = "logs"
-output_dir = "results/NuLog_result/"  # The output directory of parsing results
+output_dir = "results/ULP_result/"  # The output directory of parsing results
 
 
 
@@ -75,7 +75,7 @@ benchmark_settings = {
         "regex": [r"(\d+\.){3}\d+", r"\d{2}:\d{2}:\d{2}"],
     },
     "Android": {
-        "log_file": "Android/Android_2k.log",
+        "log_file": "Andriod/Andriod_2k.log",
         "log_format": "<Date> <Time>  <Pid>  <Tid> <Level> <Component>: <Content>",
         "regex": [
             r"(/[\w-]+)+",

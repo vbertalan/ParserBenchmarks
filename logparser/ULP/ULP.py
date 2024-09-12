@@ -207,9 +207,7 @@ class LogParser:
             template = re.sub(generic_re, " <*> ", template)
             slc["event_label"] = [template] * len(slc["event_label"].to_list())
 
-            stock = stock.append(slc)
-            stock = pd.concat([stock, pd.DataFrame([slc])], ignore_index=True)
-
+            stock = pd.concat([stock, slc], ignore_index=False)
 
             stock = stock.sort_index()
 
