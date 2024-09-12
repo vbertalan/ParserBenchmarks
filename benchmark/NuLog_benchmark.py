@@ -38,7 +38,7 @@ benchmark_settings = {
         "num_samples": 0,
     },
     "Android": {
-        "log_file": "Android/Android_2k.log",
+        "log_file": "Andriod/Andriod_2k.log",
         "log_format": "<Date> <Time>  <Pid>  <Tid> <Level> <Component>: <Content>",
         "filters": '([ |:|\(|\)|=|,|"|\{|\}|@|$|\[|\]|\||;])',
         "k": 25,
