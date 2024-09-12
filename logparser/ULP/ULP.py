@@ -48,7 +48,7 @@ class LogParser:
     def tokenize(self):
         event_label = []
         # print("\n============================Removing obvious dynamic variables======================\n\n")
-        for idx, log in self.df_log["Content"].iteritems():
+        for idx, log in self.df_log["Content"].items():
             tokens = log.split()
             tokens = re.sub(r"\\", "", str(tokens))
             tokens = re.sub(r"\'", "", str(tokens))
@@ -208,6 +208,9 @@ class LogParser:
             slc["event_label"] = [template] * len(slc["event_label"].to_list())
 
             stock = stock.append(slc)
+            stock = pd.concat([stock, pd.DataFrame([slc])], ignore_index=True)
+
+
             stock = stock.sort_index()
 
         self.df_log = stock

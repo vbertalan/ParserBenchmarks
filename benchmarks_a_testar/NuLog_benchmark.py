@@ -16,15 +16,16 @@
 
 
 import sys
-sys.path.append("../../")
-from logparser.NuLog import LogParser
+sys.path.append('../ParserBenchmarks')
+
 from logparser.utils import evaluator
-import os
+from logparser.NuLog import NuLog
+from pathlib import Path
 import pandas as pd
+import os
 
-
-input_dir = "../../data/loghub_2k/"  # The input directory of log file
-output_dir = "NuLog_result/"  # The output directory of parsing results
+input_dir = "logs"
+output_dir = "results/NuLog_result/"  # The output directory of parsing results
 
 
 benchmark_settings = {
@@ -116,7 +117,7 @@ for dataset, setting in benchmark_settings.items():
     indir = os.path.join(input_dir, os.path.dirname(setting["log_file"]))
     log_file = os.path.basename(setting["log_file"])
 
-    parser = LogParser(
+    parser = NuLog.LogParser(
         indir=indir,
         outdir=output_dir,
         filters=setting["filters"],
@@ -127,15 +128,16 @@ for dataset, setting in benchmark_settings.items():
         log_file, nr_epochs=setting["nr_epochs"], num_samples=setting["num_samples"]
     )
 
-    F1_measure, accuracy = evaluator.evaluate(
-        groundtruth=os.path.join(indir, log_file + "_structured.csv"),
-        parsedresult=os.path.join(output_dir, log_file + "_structured.csv"),
-    )
-    bechmark_result.append([dataset, F1_measure, accuracy])
+    precision, recall, f_measure, accuracy = evaluator.evaluate(
+                           groundtruth=os.path.join(indir, log_file + '_structured.csv'),
+                           parsedresult=os.path.join(output_dir, log_file + '_structured.csv')
+                           )
+    bechmark_result.append([dataset, precision, recall, f_measure, accuracy])
 
 
-print("\n=== Overall evaluation results ===")
-df_result = pd.DataFrame(bechmark_result, columns=["Dataset", "F1_measure", "Accuracy"])
-df_result.set_index("Dataset", inplace=True)
+print('\n=== Overall evaluation results ===')
+df_result = pd.DataFrame(bechmark_result, columns=['Dataset', 'Precision', 'Recall', 'F1 Measure', 'Accuracy'])
+df_result.set_index('Dataset', inplace=True)
 print(df_result)
-df_result.to_csv("NuLog_bechmark_result.csv", float_format="%.6f")
+filepath = Path('results/NuLog_bechmark_result.csv') 
+df_result.T.to_csv(filepath, float_format="%.6f")
